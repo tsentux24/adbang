@@ -1,24 +1,24 @@
 <!-- Main Content -->
 <div class="main-content min-h-screen">
     <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-30">
+    <header class="shadow-sm sticky top-0 z-30" style="background-color: #31326F;">
         <div class="flex items-center justify-between p-4">
             <div class="flex items-center gap-4">
-                <button id="sidebar-toggle" class="lg:hidden text-gray-600">
+                <button id="sidebar-toggle" class="lg:hidden text-white">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
-                <h1 class="text-xl font-semibold text-gray-800">Dashboard Administrator</h1>
+                <h1 class="text-xl font-semibold text-white">Dashboard Administrator</h1>
             </div>
 
             <div class="flex items-center gap-4">
                 <div class="hidden md:flex items-center relative">
-                    <i class="fas fa-search absolute left-3 text-gray-400"></i>
+                    <i class="fas fa-search absolute left-3 text-gray-300"></i>
                     <input type="text" placeholder="Cari..." class="rounded-full pl-10 pr-4 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-48 border border-gray-300">
                 </div>
 
                 <div class="flex items-center gap-2">
                     <!-- Notification Button with Modal -->
-                    <button id="notification-button" class="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 relative hover:bg-gray-200 transition-colors">
+                    <button id="notification-button" class="h-10 w-10 rounded-full bg-info bg-opacity-20 flex items-center justify-center text-white relative hover:bg-opacity-30 transition-colors">
                         <i class="fas fa-bell"></i>
                         <span class="absolute top-0 right-0 h-4 w-4 bg-red-500 rounded-full text-xs text-white flex items-center justify-center">3</span>
                     </button>
@@ -76,7 +76,7 @@
 
                     <!-- User Dropdown -->
                     <div class="relative">
-                        <button id="user-menu-button" class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 hover:bg-indigo-200 transition-colors">
+                        <button id="user-menu-button" class="h-10 w-10 rounded-full bg-info bg-opacity-20 flex items-center justify-center text-white hover:bg-opacity-30 transition-colors">
                             <i class="fas fa-user"></i>
                         </button>
                         <div id="user-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl z-50 hidden border border-gray-200">

@@ -13,6 +13,11 @@ class DashboardController extends Controller
         $role = Auth::user()->role; //
 
         // Render view sesuai role
-        return view("dashboard.$role");
+        $viewName = "dashboard." . $role;
+        if (view()->exists($viewName)) {
+            return view($viewName);
+        } else {
+            abort(404, "Dashboard view for role '{$role}' not found.");
+        }
     }
 }

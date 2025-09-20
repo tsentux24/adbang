@@ -3,292 +3,469 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Sistem</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Login - ePengendalian Provinsi Maluku Utara</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('malut.png') }}">
     <style>
+        /* Variabel warna dan font */
         :root {
-            --primary: #4361ee;
-            --secondary: #7209b7;
-            --accent: #3a0ca3;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --success: #4cc9f0;
+            --dark-blue: #31326F;
+            --teal: #4FB7B3;
+            --light-blue: #9DDFD3;
+            --light: #FFFFFF;
+            --gradient: linear-gradient(135deg, var(--dark-blue), var(--teal));
+            --gradient-light: linear-gradient(135deg, var(--teal), var(--light-blue));
+            --font-primary: 'Poppins', sans-serif;
+        }
+
+        /* Reset dan styling dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: var(--font-primary);
+            background: var(--gradient);
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+            color: var(--light);
+        }
+
+        /* Animasi background dengan partikel */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+            }
+            50% {
+                transform: translateY(-20px) translateX(20px);
+            }
+        }
+
+        /* Siluet gunung Gamalama */
+        .mountain-silhouette {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 150px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath fill='rgba(0,0,0,0.1)' d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            z-index: 1;
+        }
+
+        /* Header styling */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            color: var(--light);
+            font-size: 1.2rem;
+        }
+
+        .logo-img {
+            height: 50px;
+            margin-right: 12px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 8px 12px;
+            border-radius: 20px;
+        }
+
+        nav ul li a:hover {
+            color: var(--dark-blue);
+            background-color: var(--light);
+        }
+
+        /* Konten utama */
+        .main-content {
+            display: flex;
+            flex: 1;
+            padding: 2rem 5%;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Bagian kiri - Hero text */
+        .hero-section {
+            flex: 1;
+            padding-right: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: var(--light);
+        }
+
+        .hero-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            opacity: 0.9;
+            max-width: 90%;
+        }
+
+        /* Bagian kanan - Form login */
+        .login-section {
+            flex: 0 0 400px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
         }
 
         .login-card {
-            background: rgba(255, 255, 255, 0.95);
+            background-color: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
+            padding: 2.5rem;
             width: 100%;
-            max-width: 450px;
-            transition: transform 0.3s ease;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .login-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
         }
 
-        .login-header {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            padding: 30px 20px;
+        .login-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 1.8rem;
             text-align: center;
         }
 
-        .logo-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 15px;
+        .input-group {
+            margin-bottom: 1.5rem;
+            position: relative;
         }
 
-        .logo {
-            width: 80px;
-            height: 80px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .logo img {
-            width: 60px;
-            height: 60px;
-            object-fit: contain;
-        }
-
-        .login-body {
-            padding: 30px;
-        }
-
-        .form-control {
-            border-radius: 12px;
-            padding: 12px 20px;
-            border: 2px solid #eef2f7;
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--teal);
+            font-size: 1.1rem;
             transition: all 0.3s;
         }
 
-        .form-control:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.15);
+        .input-group input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 2px solid #e6e6e6;
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: all 0.3s;
         }
 
-        .input-group-text {
-            background: transparent;
-            border: 2px solid #eef2f7;
-            border-right: none;
-            border-radius: 12px 0 0 12px;
+        .input-group input:focus {
+            border-color: var(--teal);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(79, 183, 179, 0.3);
         }
 
-        .password-toggle {
-            cursor: pointer;
-            background: transparent;
-            border: 2px solid #eef2f7;
-            border-left: none;
-            border-radius: 0 12px 12px 0;
+        .input-group input:focus + i {
+            color: var(--dark-blue);
+            animation: bounce 0.5s;
         }
 
-        .btn-login {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
+        /* Tombol show password */
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
             border: none;
-            border-radius: 12px;
-            padding: 12px;
+            color: #a0a0a0;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: color 0.3s;
+            z-index: 2;
+        }
+
+        .toggle-password:hover {
+            color: var(--teal);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(-50%) scale(1); }
+            50% { transform: translateY(-50%) scale(1.2); }
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 50px;
+            background: var(--gradient);
+            color: white;
+            font-size: 1.1rem;
             font-weight: 600;
+            cursor: pointer;
             transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(49, 50, 111, 0.4);
         }
 
-        .btn-login:hover {
+        .login-btn:hover {
+            box-shadow: 0 8px 25px rgba(49, 50, 111, 0.6);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
+            background: var(--gradient-light);
         }
 
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 20px 0;
-        }
-
-        .divider::before, .divider::after {
-            content: "";
-            flex: 1;
-            border-bottom: 1px solid #dee2e6;
-        }
-
-        .divider span {
-            padding: 0 10px;
-            color: #6c757d;
-            font-size: 14px;
-        }
-
-        .social-login {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .social-btn {
-            flex: 1;
-            border: 1px solid #dee2e6;
-            border-radius: 12px;
-            padding: 10px;
+        .forgot-password {
+            display: block;
             text-align: center;
-            transition: all 0.3s;
-            background: white;
+            margin-top: 1.5rem;
+            color: var(--teal);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
         }
 
-        .social-btn:hover {
-            background: #f8f9fa;
-            transform: translateY(-2px);
+        .forgot-password:hover {
+            color: var(--dark-blue);
+            text-decoration: underline;
         }
 
-        .login-footer {
+        /* Footer */
+        footer {
             text-align: center;
-            padding: 20px;
-            background: #f8f9fa;
-            border-top: 1px solid #eef2f7;
+            padding: 1.5rem;
+            color: var(--light);
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 2;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
         }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .animate-fadeIn {
-            animation: fadeIn 0.6s ease forwards;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 576px) {
-            .login-card {
-                border-radius: 15px;
-            }
-
-            .login-body {
-                padding: 20px;
-            }
-
-            .social-login {
+        /* Responsivitas */
+        @media (max-width: 992px) {
+            .main-content {
                 flex-direction: column;
+            }
+
+            .hero-section {
+                padding-right: 0;
+                margin-bottom: 3rem;
+                text-align: center;
+            }
+
+            .hero-subtitle {
+                max-width: 100%;
+            }
+
+            .login-section {
+                flex: 0 0 auto;
+                width: 100%;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo {
+                margin-bottom: 1rem;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 0 0.5rem;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+            }
+
+            nav ul li {
+                margin: 0.5rem;
+            }
+
+            .logo-img {
+                height: 40px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="login-card animate-fadeIn">
-        <div class="login-header">
-            <div class="logo-container">
-                <div class="logo">
-                    <img src="https://malutprov.go.id/portal/public/malut.png" alt="Logo Maluku Utara">
-                </div>
-            </div>
-            <h3>Selamat Datang</h3>
-            <p class="mb-0">Silakan login untuk melanjutkan</p>
+    <!-- Background particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Siluet gunung Gamalama -->
+    <div class="mountain-silhouette"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="https://e-rekrutmen.malutprov.go.id/assets/images/malut.png" alt="Logo Pemerintah Provinsi Maluku Utara" class="logo-img">
+            <span>Pemerintah Provinsi Maluku Utara</span>
         </div>
+        <nav>
+            <ul>
+                <li><a href="#">Kegiatan</a></li>
+                <li><a href="#">Galeri</a></li>
+                <li><a href="#">Panduan</a></li>
+            </ul>
+        </nav>
+    </header>
 
-        <div class="login-body">
-            <form method="POST" action="{{ route('login') }}">
-                @csrf
+    <!-- Konten utama -->
+    <div class="main-content">
+        <!-- Bagian kiri - Hero text -->
+        <section class="hero-section">
+            <h1 class="hero-title">Pengendalian Program Strategis & Realisasi APBD</h1>
+            <p class="hero-subtitle">ePengendalian adalah aplikasi elektronik yang dikelola oleh Biro Administrasi Pembangunan Provinsi Maluku Utara untuk mendukung transparansi, akuntabilitas, dan efektivitas pembangunan daerah.</p>
+        </section>
 
-                <!-- Email Input -->
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
+        <!-- Bagian kanan - Form login -->
+        <section class="login-section">
+            <div class="login-card">
+                <h2 class="login-title">Login ke ePengendalian</h2>
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
                     <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                        <input id="email" type="email"
-                            class="form-control @error('email') is-invalid @enderror"
-                            name="email" value="{{ old('email') }}"
-                            placeholder="Masukkan alamat email" required autofocus>
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" placeholder="Email" name="email" required>
                     </div>
-                    @error('email')
-                        <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <!-- Password Input -->
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
                     <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                        <input id="password" type="password"
-                            class="form-control @error('password') is-invalid @enderror"
-                            name="password" placeholder="Masukkan password" required>
-                        <span class="input-group-text password-toggle" onclick="togglePassword()">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Password" name="password" id="password" required>
+                        <button type="button" class="toggle-password" id="togglePassword">
                             <i class="fas fa-eye"></i>
-                        </span>
+                        </button>
                     </div>
-                    @error('password')
-                        <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <!-- Remember Me & Forgot Password -->
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" id="remember">
-                        <label class="form-check-label" for="remember">
-                            Ingat saya
-                        </label>
-                    </div>
-                    @if (Route::has('password.request'))
-                        <a class="text-decoration-none" href="{{ route('password.request') }}">
-                            Lupa Password?
-                        </a>
-                    @endif
-                </div>
-
-                <!-- Login Button -->
-                <div class="d-grid gap-2 mb-3">
-                    <button type="submit" class="btn btn-login btn-lg">
-                        <i class="fas fa-sign-in-alt me-2"></i>Login
-                    </button>
-                </div>
-            </form>
-        </div>
-
-        <div class="login-footer">
-            <p class="small text-muted mb-0">&copy; {{ date('Y') }} Biro Administrasi Pembangunan Setda
-Provinsi Maluku Utara. All Rights Reserved.</p>
-        </div>
+                    <button type="submit" class="login-btn">Masuk</button>
+                    <a href="#" class="forgot-password">Lupa password?</a>
+                </form>
+            </div>
+        </section>
     </div>
 
+    <footer>
+        &copy; 2023 Pemerintah Provinsi Maluku Utara. All rights reserved.Versi 1.0
+    </footer>
+
     <script>
-        // Toggle password visibility
-        function togglePassword() {
-            const passwordInput = document.getElementById('password');
-            const toggleIcon = document.querySelector('.password-toggle i');
-
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                toggleIcon.classList.remove('fa-eye');
-                toggleIcon.classList.add('fa-eye-slash');
-            } else {
-                passwordInput.type = 'password';
-                toggleIcon.classList.remove('fa-eye-slash');
-                toggleIcon.classList.add('fa-eye');
-            }
-        }
-
-        // Add animation to form elements
+        // Script untuk membuat partikel animasi
         document.addEventListener('DOMContentLoaded', function() {
-            const formElements = document.querySelectorAll('.form-control');
-            formElements.forEach((element, index) => {
-                element.style.animationDelay = `${index * 0.1}s`;
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+
+                // Ukuran dan posisi acak
+                const size = Math.random() * 20 + 5;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 10;
+
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+
+                particlesContainer.appendChild(particle);
+            }
+
+            // Script untuk toggle show password
+            const togglePassword = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('password');
+
+            togglePassword.addEventListener('click', function() {
+                // Toggle the type attribute
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+
+                // Toggle the eye icon
+                const eyeIcon = this.querySelector('i');
+                if (type === 'password') {
+                    eyeIcon.classList.remove('fa-eye-slash');
+                    eyeIcon.classList.add('fa-eye');
+                } else {
+                    eyeIcon.classList.remove('fa-eye');
+                    eyeIcon.classList.add('fa-eye-slash');
+                }
             });
         });
     </script>

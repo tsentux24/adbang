@@ -6,7 +6,7 @@
         <div class="col-12">
             <!-- Form Input Data OPD -->
             <div class="card mb-4">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header bg-gradient-light text-black">
                     <h5 class="card-title mb-0"><i class="fas fa-building me-2"></i>Form Input Data OPD</h5>
                 </div>
                 <div class="card-body">

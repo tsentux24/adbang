@@ -1,6 +1,6 @@
 <!-- Tabel Data OPD -->
 <div class="card">
-    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+    <div class="card-header bg-gradient-light text-black d-flex justify-content-between align-items-center">
         <h5 class="card-title mb-0"><i class="fas fa-list me-2"></i>Daftar OPD Terdaftar</h5>
         <div class="d-flex">
             <input type="text" class="form-control form-control-sm rounded me-2" placeholder="Cari..." id="searchInput">

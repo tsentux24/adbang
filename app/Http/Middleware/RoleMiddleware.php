@@ -13,11 +13,13 @@ class CheckAdministrator
     {
         if (Auth::check() && Auth::user()->role === 'administrator') {
             return $next($request);
-        }else if(Auth::user()->role === 'admin') {
+        }else if (Auth::user()->role === 'admin') {
             return $next($request);
 
-        }
-
-        abort(403, 'Akses ditolak. Hanya Administrator yang diizinkan.');
+        }else if (Auth::user()->role === 'staff') {
+            return $next($request);
+        }else{
     }
+        return redirect('/')->withErrors('Anda Tidak Memiliki Akses');
+}
 }
