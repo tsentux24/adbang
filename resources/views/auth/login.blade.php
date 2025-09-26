@@ -186,6 +186,17 @@
             margin-bottom: 1.8rem;
             text-align: center;
         }
+         .error-title {
+            width: 100%;
+            margin-top: 0.5rem;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+            border: 1px solid #feb2b2;
+            border-radius: 8px;
+            color: #742a2a;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
 
         .input-group {
             margin-bottom: 1.5rem;
@@ -362,6 +373,7 @@
                 height: 40px;
             }
         }
+        /* Modern Card Style Error Messages */
     </style>
 </head>
 <body>
@@ -400,9 +412,14 @@
                 <h2 class="login-title">Login ke ePengendalian</h2>
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
+                    @error('email')
+                    <div class="error-title">{{ $message }}
+                    </div>
+                    @enderror
+                    <br>
                     <div class="input-group">
                         <i class="fas fa-envelope"></i>
-                        <input type="email" placeholder="Email" name="email" required>
+                        <input type="email" placeholder="Email" name="email" required class="form-control @error('email') is-invailid @enderror" value="{{ old('email') }}">
                     </div>
                     <div class="input-group">
                         <i class="fas fa-lock"></i>

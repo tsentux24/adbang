@@ -18,8 +18,7 @@ class CheckAdministrator
 
         }else if (Auth::user()->role === 'staff') {
             return $next($request);
-        }else{
-    }
+        }
         return redirect('/')->withErrors('Anda Tidak Memiliki Akses');
 }
 }
